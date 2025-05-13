@@ -30,38 +30,38 @@ const SideBar = () => {
           <SideBarItem
             icon={<LayoutDashboardIcon />}
             text='Dashboard'
-            link='/'
+            link='/dashboard'
             collapsed={collapsed}
           />
           <SideBarItem
             icon={<SmilePlusIcon />}
             text='Mood Tracker'
-            link='/mood'
+            link='/dashboard/mood'
             collapsed={collapsed}
           />
           <SideBarItem
             icon={<NotebookIcon />}
             text='Journal Log'
-            link='/journal-log'
+            link='/dashboard/journal-log'
             collapsed={collapsed}
           />
           <SideBarItem
             icon={<CalendarIcon />}
             text='Habits'
-            link='/habits'
+            link='/dashboard/habits'
             collapsed={collapsed}
           />
           <SideBarItem
             icon={<PenIcon />}
             text='Write Entry'
-            link='/write-entry'
+            link='/dashboard/write-entry'
             buttonType
             collapsed={collapsed}
           />
           <SideBarItem
             icon={<SlidersHorizontalIcon />}
             text='Settings'
-            link='/settings'
+            link='/dashboard/settings'
             collapsed={collapsed}
           />
         </ul>
