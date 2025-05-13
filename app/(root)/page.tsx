@@ -13,12 +13,10 @@ const page = () => {
 
   return (
     <div className='flex flex-col'>
-      <h2 className='text-2xl mb-2'>{greeting}, Sophie.</h2>
-      <Link href='' className='font-light'>{recommendedJournal}.</Link>
-      <section className='mt-8'>
-        <h2 className='text-xl border-b-1 border-b-purple-200 pb-2 mb-8'>Dashboard</h2>
-        <QuoteCard quoteText='Work hard' quoteAuthor='Sophie' />
-      </section>
+      <h2 className='text-2xl mb-4 mt-1'>Dashboard</h2>
+      <h2 className='text-xl mb-2'>{greeting}, Sophie.</h2>
+      <Link href='' className='font-light mb-8'>{recommendedJournal}.</Link>
+      <QuoteCard quoteText='Work hard' quoteAuthor='Sophie' />
     </div>
   );
 }
