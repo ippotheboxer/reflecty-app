@@ -1,10 +1,27 @@
 'use client';
 import Link from 'next/link';
 import React from 'react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { signInWithCredentials } from '@/lib/actions/user.actions';
 
 const CredentialsSignInForm = () => {
+  const [data, action] = useActionState(signInWithCredentials,
+    {
+      success: false, message: ''
+    });
+
+  const SignInButton: React.FC = () => {
+    const { pending } = useFormStatus();
+
+    return (
+      <button disabled={pending} className='w-full bg-purple-200'>
+        {pending ? 'Signing in...' : 'Sign in'}
+      </button>
+    )
+  }
   return (
-    <form>
+    <form action={action}>
       <div className='space-y-6'>
         <div>
           <label htmlFor='email' className='mr-2'>Email</label>
@@ -23,7 +40,7 @@ const CredentialsSignInForm = () => {
           <input
             name='password'
             id='password'
-            type='text'
+            type='password'
             required
             autoComplete='password'
             className='bg-white'
@@ -31,8 +48,14 @@ const CredentialsSignInForm = () => {
           />
         </div>
         <div>
-          <button>Sign In</button>
+          <SignInButton />
         </div>
+
+        {data && !data.success && (
+          <div className='text-center text-red-400'>
+            {data.message}
+          </div>
+        )}
         <div className="text-sm text-center text-muted-foreground">
           Don&apos;t have an account? {' '}
           <Link href='/sign-up'>Sign Up</Link>
