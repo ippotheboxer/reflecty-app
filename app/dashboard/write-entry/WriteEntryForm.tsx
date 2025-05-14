@@ -24,7 +24,7 @@ const SubmitButton = () => {
     <button
       type="submit"
       disabled={pending}
-      className="bg-purple-600 text-white py-2 px-4 rounded"
+      className="bg-[#D7C9FF] py-2 px-4 rounded-full"
     >
       {pending ? 'Saving...' : 'Save Journal'}
     </button>
