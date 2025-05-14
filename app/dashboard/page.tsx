@@ -2,16 +2,8 @@ import QuoteCard from '@/components/QuoteCard';
 import { getGreeting } from '@/lib/utils';
 import Link from 'next/link';
 import React from 'react';
-import { redirect } from 'next/navigation';
-import { auth } from "@/auth";
 
 const HomePage = async () => {
-  const session = await auth();
-
-  if (!session) {
-    return redirect('/sign-in')
-  }
-
   const greeting = getGreeting('Europe/London');
 
   const recommendedJournal =

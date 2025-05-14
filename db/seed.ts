@@ -19,6 +19,27 @@ async function main() {
 
   await prisma.user.createMany({ data: sampleData.users });
 
+  // Seed journal types and prompts
+  for (const type of sampleData.journalTypes) {
+    const journalType = await prisma.journalType.create({
+      data: {
+        name: type.name,
+        description: type.description,
+        isCustom: type.isCustom,
+      },
+    });
+
+    // Seed prompts separately after creating journalType
+    const prompts = type.prompts.map(prompt => ({
+      content: prompt.content,
+      typeId: journalType.id,  // Use the id of the created journalType
+    }));
+
+    await prisma.prompt.createMany({
+      data: prompts,
+    });
+  }
+
   console.log('Database seeded successfully!');
 }
 
