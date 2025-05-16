@@ -17,8 +17,8 @@ const SignUpPage = async () => {
   }
 
   return (
-    <div className='w-full max-w-md mx-auto'>
-      <h1 className='text-lg'>Create Account</h1>
+    <div className='flex flex-col items-center'>
+      <h1 className='text-2xl mb-8'>Create Account</h1>
       <CredentialsSignUpForm />
     </div>
   );

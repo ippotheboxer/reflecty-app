@@ -17,8 +17,8 @@ const SignInPage = async () => {
   }
 
   return (
-    <div className='w-full max-w-md mx-auto'>
-      <h1 className='text-lg'>Sign in</h1>
+    <div className='flex flex-col items-center'>
+      <h1 className='text-2xl mb-8'>Sign In</h1>
       <CredentialsSignInForm />
     </div>
   );
