@@ -25,7 +25,7 @@ const WriteEntryPage = async () => {
 
   return (
     <div className="">
-      <h1 className="text-2xl mb-4 border-b-1 pb-1">Write New Entry</h1>
+      <h1 className="text-2xl mb-8 border-b-1 border-b-gray-300 pb-1">Write New Entry</h1>
       <WriteEntryForm userId={session!.user.id as string} types={types} />
     </div>
   );

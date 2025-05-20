@@ -29,7 +29,11 @@ const JournalLogPage = async () => {
 
   const journalEntries = await getJournalEntriesByUserId(session.user.id as string);
 
-  const groupedJournals = groupJournalsByMonth(journalEntries);
+  const sortedEntries = [...journalEntries].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+  const groupedJournals = groupJournalsByMonth(sortedEntries);
+
 
   const Journals: React.FC = () => {
     if (journalEntries.length === 0) {
@@ -38,19 +42,25 @@ const JournalLogPage = async () => {
       return (
         <div>
           {/* Map over grouped journals and display month and entries */}
-          {Object.keys(groupedJournals).map((monthYear) => {
-            const journals = groupedJournals[monthYear];
-            return (
-              <div key={monthYear}>
-                <h3 className="text-lg font-semibold mt-6 mb-2">{monthYear}</h3>
-                <ul>
-                  {journals.map((journal) => (
-                    <JournalEntry key={journal.id} content={journal.content} date={journal.createdAt} title={journal.title} />
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+          {Object.keys(groupedJournals)
+            .sort((a, b) => {
+              const dateA = new Date(a);
+              const dateB = new Date(b);
+              return dateB.getTime() - dateA.getTime(); // Most recent first
+            })
+            .map((monthYear) => {
+              const journals = groupedJournals[monthYear];
+              return (
+                <div key={monthYear}>
+                  <h3 className="text-lg font-semibold mt-6 mb-2">{monthYear}</h3>
+                  <ul>
+                    {journals.map((journal) => (
+                      <JournalEntry key={journal.id} id={journal.id} content={journal.content} date={journal.createdAt} title={journal.title} />
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
         </div>
       );
     }

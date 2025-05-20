@@ -45,36 +45,38 @@ const WriteEntryForm = ({ userId, types }: { userId: string; types: any[] }) => 
   const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} className="space-y-8">
       <input type="hidden" name="userId" value={userId} />
+
+      <div className='flex flex-row items-center'>
+        <label htmlFor="title" className="font-medium mr-2">Title</label>
+        <input
+          name="title"
+          id="title"
+          type="text"
+          className="!outline-none bg-white rounded px-2 py-1 w-[500px]"
+        />
+        {state.errors?.title && <p className="text-red-500">{state.errors.title[0]}</p>}
+      </div>
 
       <JournalCategory
         name="typeName"
-        label="Journal Type"
+        label="Journal Category"
         types={types}
         onChange={setSelectedCategory}
       />
 
       {state.errors?.typeName && <p className="text-red-500">{state.errors.typeName[0]}</p>}
 
-      <div>
-        <label htmlFor="title" className="block font-medium">Title</label>
-        <input
-          name="title"
-          id="title"
-          type="text"
-          className="mt-1 block w-full bg-white border rounded p-2"
-        />
-        {state.errors?.title && <p className="text-red-500">{state.errors.title[0]}</p>}
-      </div>
+
 
       <div>
-        <label htmlFor="content" className="block font-medium">Content</label>
+        <label htmlFor="content" className="block font-medium mb-2">Content</label>
         <textarea
           name="content"
           id="content"
           rows={5}
-          className="mt-1 block w-full bg-white border rounded p-2"
+          className="!outline-none bg-white rounded p-4 w-[600px] leading-6.5"
         />
         {state.errors?.content && <p className="text-red-500 text-sm">{state.errors.content[0]}</p>}
       </div>

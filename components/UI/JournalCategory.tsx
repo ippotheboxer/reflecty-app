@@ -30,7 +30,7 @@ const JournalCategory: React.FC<SelectionInputProps> = ({ types, name, label, on
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative max-w-fit">
       <input type="hidden" name={name} value={selected ? selected.name : ''} />
 
       <div onClick={() => setIsOpen(!isOpen)} className="flex items-center cursor-pointer">

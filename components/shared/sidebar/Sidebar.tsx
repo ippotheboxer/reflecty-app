@@ -27,7 +27,7 @@ const SideBar = () => {
         <ul className='flex flex-col space-y-10 flex-1'>
           <SideBarItem icon={<LayoutDashboardIcon />} text='Dashboard' link='/dashboard' collapsed={collapsed} />
           <SideBarItem icon={<SmilePlusIcon />} text='Mood Tracker' link='/dashboard/mood' collapsed={collapsed} />
-          <SideBarItem icon={<NotebookIcon />} text='Journal Log' link='/dashboard/journal-log' collapsed={collapsed} />
+          <SideBarItem icon={<NotebookIcon />} text='Journal Log' link='/dashboard/journal' collapsed={collapsed} />
           <SideBarItem icon={<CalendarIcon />} text='Habits' link='/dashboard/habits' collapsed={collapsed} />
           <SideBarItem icon={<PenIcon />} text='Write Entry' link='/dashboard/write-entry' buttonType collapsed={collapsed} />
           <SideBarItem icon={<SlidersHorizontalIcon />} text='Settings' link='/dashboard/settings' collapsed={collapsed} />
