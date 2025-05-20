@@ -16,15 +16,17 @@ const WriteEntryPage = async () => {
         { userId: null }
       ]
     },
-    select: { name: true }
+    select: {
+      name: true,
+      iconName: true,
+      bgColor: true
+    }
   });
 
-  const typeNames = types.map(t => t.name);
-
   return (
-    <div className="max-w-xl mx-auto mt-10">
-      <h1 className="text-2xl font-semibold mb-4">New Journal Entry</h1>
-      <WriteEntryForm userId={session!.user.id as string} types={typeNames} />
+    <div className="">
+      <h1 className="text-2xl mb-4 border-b-1 pb-1">Write New Entry</h1>
+      <WriteEntryForm userId={session!.user.id as string} types={types} />
     </div>
   );
 }

@@ -84,6 +84,8 @@ model JournalType {
   name        String
   description String
   prompts     Prompt[]
+  iconName    String?
+  bgColor     String?
   isCustom    Boolean   @default(false)
   user        User?     @relation("CustomTypes", fields: [userId], references: [id])
   userId      String?   @db.Uuid

@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { createJournalEntry } from '@/lib/actions/journal.actions';
+import JournalCategory from '@/components/UI/JournalCategory';
+import SubmitButton from "@/components/UI/SubmitButton"
 
 const initialState = {
   success: false,
@@ -17,53 +19,57 @@ type FormState = {
   errors?: Record<string, string[]>;
 };
 
-const SubmitButton = () => {
+interface CategoryType {
+  name: string;
+  iconName: string;
+  bgColor: string;
+}
+
+const SaveJournalButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
+    <SubmitButton
       disabled={pending}
-      className="bg-[#D7C9FF] py-2 px-4 rounded-full"
     >
       {pending ? 'Saving...' : 'Save Journal'}
-    </button>
+    </SubmitButton>
   );
 };
 
-const WriteEntryForm = ({ userId, types }: { userId: string; types: string[] }) => {
+const WriteEntryForm = ({ userId, types }: { userId: string; types: any[] }) => {
   const [state, formAction] = useActionState<FormState, FormData>(
     createJournalEntry,
     initialState
   );
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
   return (
     <form action={formAction} className="space-y-4">
       <input type="hidden" name="userId" value={userId} />
 
-      <div>
-        <label htmlFor="typeName" className="block text-sm font-medium">Journal Type</label>
-        <select name="typeName" id="typeName" className="mt-1 block w-full bg-white border rounded p-2">
-          {types.map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
-        {state.errors?.typeName && <p className="text-red-500 text-sm">{state.errors.typeName[0]}</p>}
-      </div>
+      <JournalCategory
+        name="typeName"
+        label="Journal Type"
+        types={types}
+        onChange={setSelectedCategory}
+      />
+
+      {state.errors?.typeName && <p className="text-red-500">{state.errors.typeName[0]}</p>}
 
       <div>
-        <label htmlFor="title" className="block text-sm font-medium">Title</label>
+        <label htmlFor="title" className="block font-medium">Title</label>
         <input
           name="title"
           id="title"
           type="text"
           className="mt-1 block w-full bg-white border rounded p-2"
         />
-        {state.errors?.title && <p className="text-red-500 text-sm">{state.errors.title[0]}</p>}
+        {state.errors?.title && <p className="text-red-500">{state.errors.title[0]}</p>}
       </div>
 
       <div>
-        <label htmlFor="content" className="block text-sm font-medium">Content</label>
+        <label htmlFor="content" className="block font-medium">Content</label>
         <textarea
           name="content"
           id="content"
@@ -73,7 +79,7 @@ const WriteEntryForm = ({ userId, types }: { userId: string; types: string[] }) 
         {state.errors?.content && <p className="text-red-500 text-sm">{state.errors.content[0]}</p>}
       </div>
 
-      <SubmitButton />
+      <SaveJournalButton />
 
       {state.message && !state.success && (
         <p className="text-red-500 mt-2">{state.message}</p>

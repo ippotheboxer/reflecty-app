@@ -16,6 +16,8 @@ const sampleData = {
   journalTypes: [
     {
       name: 'Reflective Journaling',
+      iconName: 'BookOpenIcon',
+      bgColor: '#C9DDFF',
       isCustom: false,
       description:
         'Journaling is a great way to gain a deeper understanding of ourselves and the world around us.',
@@ -31,6 +33,8 @@ const sampleData = {
     {
       name: 'Gratitude Journaling',
       isCustom: false,
+      iconName: 'HandHeartIcon',
+      bgColor: '#C9FFCE',
       description:
         'Gratitude journaling is a practice of regularly writing down things you are thankful for, helping you cultivate appreciation and focus on the positive aspects of your life.',
       prompts: [
@@ -44,6 +48,8 @@ const sampleData = {
     },
     {
       name: 'Daily Journaling',
+      iconName: 'NotebookIcon',
+      bgColor: '#FFD4C9',
       isCustom: false,
       description:
         'Morning prompts to start your day with reflection, focus, and emotional awareness.',
@@ -57,6 +63,8 @@ const sampleData = {
     },
     {
       name: 'Weekly Review',
+      iconName: 'BookOpenIcon',
+      bgColor: '#C9DDFF',
       isCustom: false,
       description:
         'Reflect on your week — your wins, your challenges, and how you showed up for yourself.',
@@ -70,6 +78,8 @@ const sampleData = {
     {
       name: 'Monthly Review',
       isCustom: false,
+      iconName: 'BookOpenIcon',
+      bgColor: '#C9DDFF',
       description:
         'Use this to reflect at the end of each month on growth, lessons, and standout moments.',
       prompts: [
@@ -81,6 +91,8 @@ const sampleData = {
     },
     {
       name: 'New Month Planning',
+      iconName: 'BookOpenIcon',
+      bgColor: '#C9DDFF',
       isCustom: false,
       description:
         'Plan your intention and focus as a new month begins. Set goals and prepare mentally and emotionally.',
@@ -93,6 +105,8 @@ const sampleData = {
     },
     {
       name: 'Dream Journaling',
+      iconName: 'MoonIcon',
+      bgColor: '#C9CDFF',
       isCustom: false,
       description:
         'Record your dreams as soon as you wake up to improve recall and gain insights into your subconscious mind.',
