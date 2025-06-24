@@ -10,6 +10,7 @@ const JournalDetailPage = async ({ params }: { params: { id: string } }) => {
       title: true,
       content: true,
       createdAt: true,
+      type: true
     },
   });
 
@@ -21,11 +22,11 @@ const JournalDetailPage = async ({ params }: { params: { id: string } }) => {
         <MoveLeftIcon className='mr-2' /> Back to journals
       </Link>
       <h1 className="text-3xl font-bold mb-2">{journal.title}</h1>
+      <p>{journal.type.name}</p>
       <p className="text-sm text-gray-500 mb-4">
         {new Date(journal.createdAt).toLocaleDateString()}
       </p>
-      <div className="prose max-w-none text-gray-800">
-        {journal.content}
+      <div className="prose max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: journal.content }}>
       </div>
     </div>
   );

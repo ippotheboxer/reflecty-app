@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { createJournalEntry } from '@/lib/actions/journal.actions';
+import { getRandomPromptByCategory } from '@/lib/actions/prompt.actions'; // <-- Import action
 import JournalCategory from '@/components/UI/JournalCategory';
-import SubmitButton from "@/components/UI/SubmitButton"
+import SubmitButton from "@/components/UI/SubmitButton";
+import TiptapEditor from '@/components/RichTextEditor';
 
 const initialState = {
   success: false,
@@ -19,19 +21,11 @@ type FormState = {
   errors?: Record<string, string[]>;
 };
 
-interface CategoryType {
-  name: string;
-  iconName: string;
-  bgColor: string;
-}
-
 const SaveJournalButton = () => {
   const { pending } = useFormStatus();
 
   return (
-    <SubmitButton
-      disabled={pending}
-    >
+    <SubmitButton disabled={pending}>
       {pending ? 'Saving...' : 'Save Journal'}
     </SubmitButton>
   );
@@ -42,11 +36,29 @@ const WriteEntryForm = ({ userId, types }: { userId: string; types: any[] }) => 
     createJournalEntry,
     initialState
   );
+
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [content, setContent] = useState('');
+  const [isPending, startTransition] = useTransition();
+
+  const handleGeneratePrompt = () => {
+    if (!selectedCategory) return;
+
+    startTransition(async () => {
+      const prompt = await getRandomPromptByCategory(selectedCategory, userId);
+      if (prompt) {
+        setContent(prompt);
+      } else {
+        setContent('No prompts found for this category.');
+      }
+    });
+  };
+
 
   return (
     <form action={formAction} className="space-y-8">
       <input type="hidden" name="userId" value={userId} />
+      <input type="hidden" name="content" value={content} />
 
       <div className='flex flex-row items-center'>
         <label htmlFor="title" className="font-medium mr-2">Title</label>
@@ -68,17 +80,25 @@ const WriteEntryForm = ({ userId, types }: { userId: string; types: any[] }) => 
 
       {state.errors?.typeName && <p className="text-red-500">{state.errors.typeName[0]}</p>}
 
-
+      {selectedCategory !== '' &&
+        <button
+          type="button"
+          className="bg-purple-300 text-white px-4 py-2 rounded shadow hover:bg-purple-400"
+          onClick={handleGeneratePrompt}
+          disabled={isPending || !selectedCategory}
+        >
+          {isPending ? 'Generating...' : 'Generate a Prompt'}
+        </button>
+      }
 
       <div>
-        <label htmlFor="content" className="block font-medium mb-2">Content</label>
-        <textarea
-          name="content"
-          id="content"
-          rows={5}
-          className="!outline-none bg-white rounded p-4 w-[600px] leading-6.5"
-        />
-        {state.errors?.content && <p className="text-red-500 text-sm">{state.errors.content[0]}</p>}
+        <label className="block font-medium mb-2">Content</label>
+        <TiptapEditor content={content} setContent={setContent} />
+        {state.errors?.content && (
+          <p className="text-red-500 text-sm">
+            {state.errors.content[0]}
+          </p>
+        )}
       </div>
 
       <SaveJournalButton />

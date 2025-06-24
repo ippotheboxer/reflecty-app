@@ -26,11 +26,14 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ id, date, title, content })
           <div className="font-semibold text-lg pb-1">
             {title}
           </div>
-          <p className="font-light text-base">
-            {content.length > 500
-              ? `${content.slice(0, 500)}...`
-              : content}
-          </p>
+          <div
+            className="font-light text-base prose max-w-none"
+            dangerouslySetInnerHTML={{
+              __html: content.length > 500
+                ? `${content.slice(0, 500)}...`
+                : content,
+            }}
+          />
         </div>
       </div>
     </Link>
